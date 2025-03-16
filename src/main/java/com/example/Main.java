@@ -42,27 +42,19 @@ public class Main {
             if (originalFile.renameTo(new File(currentPath + result + "." + fileType[fileType.length-1]))) { // missing try catch for when the new name already exists
                 System.out.println("File renamed successfully.");
             } else {
-                System.out.println("Failed to rename file.");
+                System.out.println("Failed to automatically rename file.\n");
+                System.out.print("Type in the new name: "); // unnecessary when llm renames it
+                String newName = s.nextLine();
+                File renamedFile = new File(currentPath + "\\" + newName);
+                if (originalFile.renameTo(renamedFile)) { // missing try catch for when the new name already exists
+                    System.out.println("File renamed successfully.");
+                } else {
+                    System.out.println("Failed to rename file.");
+                }
             }
         }
         else {
             System.out.println(currentPath + oldName + " not found.");
-        }
-
-        System.out.print("new name: "); // unnecessary when llm renames it
-        String newName = s.nextLine();
-        File renamedFile = new File(currentPath + "\\" + newName);
-
-        if (originalFile.exists()){
-            if (originalFile.renameTo(renamedFile)) { // missing try catch for when the new name already exists
-                System.out.println("File renamed successfully.");
-            } else {
-                System.out.println("Failed to rename file.");
-            }
-        }
-        else {
-            System.out.println("File does not exist.");
-        }
-        
+        }        
     }
 }
